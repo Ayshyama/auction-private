@@ -68,6 +68,8 @@ def all(request):
     })
 
 def register(request):
+    partner_logos = PartnerLogo.objects.all()
+    announcements = Announcement.objects.all()
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -95,11 +97,16 @@ def register(request):
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "auctions/register.html")
+        return render(request, "auctions/register.html", {
+            'partner_logos': partner_logos,
+            'announcements': announcements
+        })
 
 
 
 def login_view(request):
+    partner_logos = PartnerLogo.objects.all()
+    announcements = Announcement.objects.all()
     if request.method == "POST":
 
         # Attempt to sign user in
@@ -116,7 +123,10 @@ def login_view(request):
                 "message": "Invalid username and/or password."
             })
     else:
-        return render(request, "auctions/login.html")
+        return render(request, "auctions/login.html", {
+            'partner_logos': partner_logos,
+            'announcements': announcements
+        })
 
 
 @login_required
