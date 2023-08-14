@@ -1,0 +1,335 @@
+{% extends "auctions/layout.html" %}
+<head>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  
+    <!-- Add flag-icon-css CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+  
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  
+    <!-- Add Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+
+
+{% block body %}
+<div class="container p-4 text-center" style="max-width: 600px;">
+
+    {% if message %}
+    <div class="alert alert-danger">{{ message }}</div>
+    {% endif %}
+
+    <!-- <div class="card inout">
+        <div class="card-body m-4">
+            <h2 class="card-title">Register</h2>
+
+            <form action="{% url 'register' %}" method="post" class="card-text mb-3">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="email" name="email" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                </div>
+                <input class="gradient-button register" type="submit" value="Register">
+            </form>
+            Already have an account? <a href="{% url 'login' %}"><strong><span style="color: rgba(190, 255, 92, 0.8);">Log In</a></span></strong>
+        </div>
+    </div> -->
+
+    <div class="box">
+        
+        <div class="layer">
+
+            <span class="borderLine"></span>
+    
+            <form action="{% url 'register' %}" method="post" class="card-text mb-3">
+                <br>
+                <br>
+                <h2>Sign up</h2>
+                <hr>
+
+                {% csrf_token %}
+                <div class="form-group">
+                    <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+                </div>
+
+                <!-- <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="tel" name="phone" placeholder="Enter your phone number">
+                    </div>
+                </div> -->
+
+                <!-- <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="flag-icon flag-icon-us"></span>+1
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">
+                            <span class="flag-icon flag-icon-gb"></span>+44
+                          </a>
+                          <a class="dropdown-item" href="#">
+                            <span class="flag-icon flag-icon-fr"></span>+33
+                          </a>
+
+                        </div>
+                      </div>
+                      <input class="form-control" type="tel" name="phone" placeholder="Enter your phone number">
+                    </div>
+                  </div> -->
+
+                  <div class="form-group">
+                    <input type="tel" id="phone" name="phone" placeholder="Phone number" class="form-control">
+                </div>
+                
+                
+
+                
+                
+
+
+                <!-- <div class="form-group">
+                    <input class="form-control" type="email" name="email" placeholder="Email Address">
+                </div> -->
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                </div>
+                <input class="gradient-button register" type="submit" value="Register">
+                Already have an account? <a href="{% url 'login' %}"><strong><span style="color: rgba(190, 255, 92, 0.8);">Log In</a></span></strong>
+            </form>
+            
+    
+    
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    $(function() {
+        $('.dropdown-toggle').dropdown();
+    });
+    </script>
+<!-- #### FIELDS #### -->
+<style>
+    .box form .inputBox {
+        position: relative;
+        width: 505px;
+    }
+    .box form .inputBox input {
+        position: relative;
+        width: 100%;
+        padding: 20px 10px 10px;
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        border: none;
+        color: white;
+        font-size: 1em;
+        letter-spacing: 0.05em;
+        transition: 0.5s;
+        z-index: 10;
+    
+    }
+    
+    .box form .inputBox span {
+        position: absolute;
+        left: 0;
+        padding: 20px 10px 10px;
+        pointer-events: none;
+        color: #8f8f8f;
+        font-size: 1em;
+        letter-spacing: 0.05em;
+        transition: 0.5s;
+    }
+    
+    .box form .inputBox input:valid ~ span,
+    .box form .inputBox input:focus ~ span {
+        color: #fff;
+        font-size: 0.75em;
+        transform: translateY(-34px);
+    }
+    </style>
+    
+    <!-- #### ANIMATION-BOX #### -->
+    <style>
+    
+    .box {
+        z-index: 2;
+        position: relative;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -4%);
+        width: 600px;
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+        font-family: 'Allerta Stencil';
+        box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0);
+        /* background-color: rgba(0, 0, 0, 0.00); */
+        -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(25px);
+        color: white;
+        border-radius: 0.25rem;
+        overflow: hidden;
+        box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.400);
+    }
+        
+    .layer {
+    z-index: 3;
+    position: absolute;
+    inset: 4px;
+    color: white;
+    padding: 50px 40px;
+    align-items: center;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+
+    background-image: linear-gradient(rgba(221, 94, 137, 0),rgba(3, 2, 7, 0.700)) , url("/static/img/bg-inout.jpg");
+    }
+    
+    
+    .box form {
+    position: absolute;
+    inset: 0px;
+    color: white;
+    height: 100%;
+    align-items: center;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    -webkit-backdrop-filter: blur(25px);
+    backdrop-filter: blur(25px);
+    background-color: rgba(0, 0, 0, 0.050);
+
+}
+
+    
+.box::before {
+    z-index: 0;
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: 10%;
+    width: 250px;
+    height: 500px;
+    background: linear-gradient(0deg, transparent,
+    transparent,
+    rgb(0,210,255),
+    rgb(58,123,213),
+    rgb(58,123,213) );
+    transform-origin: bottom right;
+    animation: animate 5s linear infinite;
+    border-radius: 50%;
+
+}
+.box::after{
+    z-index: 0;
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: 10%;
+    width: 250px;
+    height: 500px;
+    background: linear-gradient(0deg, transparent,
+    transparent,
+    rgb(247, 187, 151),
+    rgb(225, 95, 100),
+    rgb(225, 95, 100) );
+    transform-origin: bottom right;
+    animation: animate 5s linear infinite;
+    animation-delay: -2.5s;
+    border-radius: 50%;
+}
+
+.borderLine {
+    position: absolute;
+    top: 0;
+    inset: 0;
+}
+
+.borderLine::before {
+    z-index: 0;
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: 10%;
+    width: 250px;
+    height: 500px;
+    background: linear-gradient(0deg, transparent,
+    transparent,
+    rgb(0,210,255, 0.15),
+    rgb(58,123,213, 0.15),
+    rgb(58,123,213, 0.15) );
+    transform-origin: bottom right;
+    animation: animate 5s linear infinite;
+    border-radius: 50%;
+}
+
+.borderLine::after {
+    z-index: 0;
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: 10%;
+    width: 250px;
+    height: 500px;
+    background: linear-gradient(0deg, transparent,
+    transparent,
+    rgba(247, 188, 151, 0.15),
+    rgb(225, 95, 100, 0.15),
+    rgb(225, 95, 100, 0.15) );
+    transform-origin: bottom right;
+    animation: animate 5s linear infinite;
+    animation-delay: -2.5s;
+    border-radius: 50%;
+}
+
+
+    
+    @keyframes animate {
+        0%
+        {
+          transform: rotate(0deg)  
+        }
+        100%
+        {
+            transform: rotate(360deg);
+        }
+        
+    } 
+    </style>
+
+
+<script>
+    // Update the selected code when a dropdown item is clicked
+    document.querySelectorAll('.dropdown-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        var code = this.getAttribute('data-code');
+        document.getElementById('selected-code').textContent = code;
+      });
+    });
+  </script>
+
+
+{% endblock %}

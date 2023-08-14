@@ -1,0 +1,219 @@
+{% extends 'auctions/layout.html'%}
+
+{% block title %}
+{{ item.name }}
+{% endblock %}
+{% block body %}
+<head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+  </head>
+
+<div class="container detail-page">
+    <h4 class="mb-3">Listing: <span class="title">{{ item.name }}</span></h4>
+    <div class="image">
+        <img class="big magnific-popup" src="{{ item.auc_image.url }}" alt="{{ item.id }}" href="{{ item.auc_image.url }}" title="{{ item.title }}" style="cursor: pointer;">
+      </div> 
+
+    <div class="item-description">
+        {{ item.description }}
+    </div>
+    <div class="bid">
+        Start Bid : <strong>${{ item.startBid }}</strong>
+    </div>
+    {% for bid in bids %}
+    <div class="text-center">{{ bid.user.username }} bid <strong>{{ bid.bidValue }}</strong> at
+        {{ bid.date|date:'M d, h:i a' }}</div>
+    {% empty %}
+    <div class="alert alert-warning text-center">
+        No Bids Yet!
+    </div>
+    {% endfor %}
+
+    <section class="my-3">
+        {% if bid and item.active == False %}
+        <div class="alert alert-dark text-center">
+            {% if bid.user.username == user.username %}
+            You Won The Auction!
+            {% else %}
+            <strong>{{ bid.user.username }}</strong> won, with a bid of <strong>${{ bid.bidValue }}</strong>
+            {% endif %}
+        </div>
+
+        {% endif %}
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if not user.is_authenticated %}
+        <div class="alert alert-warning text-center">
+            You need to <a href="{% url 'login' %}">log in</a> to place a bid.
+        </div>
+        {% endif %}
+
+        {% if item.active and user.is_authenticated %}
+        <form action="{% url 'bid' item.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="number" name="bid" class="form-control" placeholder="Bid" step=".01">
+            </div>
+            <div class="row justify-content-around">
+                <button class="btn btn-primary" type="submit">Place Bid</button>
+                {% if user.is_superuser %}
+                <a href="{% url 'end' item.id %}">
+                    <button class="btn btn-warning" type="button">End Auction</button>
+                </a>
+                {% endif %}
+            </div>
+        </form>
+        {% endif %}
+    </section>
+
+    <section>
+        Details:
+        <ul>
+            <li>Listed By: <strong>{{ item.user.username }}</strong></li>
+            <li>Category: <strong>{{ item.category.name }}</strong></li>
+            <li>Listed On: <strong>{{ item.date }}</strong></li>
+            <li>End Date: <strong>{{ item.end_date }}</strong></li>
+        </ul>
+    </section>
+
+
+
+
+    <hr>
+    <br>
+
+    <div class="button-row-container">
+        <a href="#" id="back-link">
+            <input class="button-row back" type="button" value="Back">
+        </a>
+    
+        <a href="http://tuzovauction.com/all">
+            <input class="button-row home" type="button" value="Home">
+        </a>
+    
+        <a href="#" id="next-link">
+            <input class="button-row next" type="button" value="Next">
+        </a>
+    </div>
+
+    <br>
+
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $('.magnific-popup').magnificPopup({
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    });
+</script>
+
+<script>
+    // get current item id from url
+    var itemId = window.location.pathname.split('/').pop();
+
+    // modify href of Back link
+    var backLink = document.getElementById('back-link');
+    var backUrl = 'http://tuzovauction.com/details/' + (parseInt(itemId) - 1);
+    // var backUrl = 'http://127.0.0.1:8000/details/' + (parseInt(itemId) - 1);
+    backLink.href = backUrl;
+
+    // modify href of Next link
+    var nextLink = document.getElementById('next-link');
+    var nextUrl = 'http://tuzovauction.com/details/' + (parseInt(itemId) + 1);
+    // var nextUrl = 'http://127.0.0.1:8000/details/' + (parseInt(itemId) + 1);
+    nextLink.href = nextUrl;
+</script>
+
+<style>
+    .btn {
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 0.25rem;
+    }
+
+    .btn-primary {
+        background-color: #0069d9;
+        color: #fff;
+        /* border-color: #000000; */
+        border: 1px solid rgb(0, 0, 0);
+    }
+    .btn-warning {
+        background-color: #FF4500;
+        color: #fff;
+        /* border-color: #000000; */
+        border: 1px solid black;
+    }
+    .btn-warning:hover {
+        background-color: #FF6347;
+        color: #fff;
+        border-color: #FF6347;
+        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.100), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+
+
+    .btn-primary:hover {
+        background-color: #007bff;
+        color: #fff;
+        border-color: #0062cc;
+        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.100), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .button-row-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 600px;
+        /* set a maximum width for the container */
+        margin: 0 auto;
+        /* center the container */
+    }
+
+    .button-row {
+        font-family: "Allerta Stencil", Gadget, sans-serif;
+        /* display: inline-block; */
+        border: none;
+        padding: 10px 25px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #f1f1f100;
+        color: #ffffff;
+        cursor: pointer;
+        width: 100%;
+        max-width: 700px;
+        transition: 0.5s;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.400);
+        border-radius: 0.25rem;
+        border: 1px solid rgb(255, 255, 255);
+    }
+
+    .button-row:hover {
+        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.205), 0 6px 6px rgba(0, 0, 0, 0.23);
+        /* margin: 8px 10px 12px; */
+        background-position: right center;
+    }
+
+    .button-raw:focus {
+        outline: none;
+    }
+
+
+</style>
+    {% endblock %}

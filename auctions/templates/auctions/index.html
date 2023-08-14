@@ -1,0 +1,137 @@
+{% extends "auctions/layout.html" %}
+{% load custom_filters %}
+{% block body %}
+
+<div class="items-list">
+    {% for obj in objects %}
+    <a href="{% url 'details' obj.id %}">
+        <div class="item text-center" {% if obj.active != True %}style="background-color: rgba(0, 0, 0, 0.500);"{% endif %}>
+            <div style="width: 100%; height: 100%; ">
+                <div style="width: 100%; height: 100%; overflow: hidden;">
+                    <img src="{{ obj.auc_image.url }}" alt="Loading..." style="width: 100%; height: 100%;">
+                </div>
+            </div>
+
+            <div class="details">
+<br>
+<br>
+                {% if obj.active %}
+                <span class="badge status--active">ACTIVE</span>
+                {% else %}
+                <span class="badge status--inactive">SOLD</span>
+                {% endif %}
+                <hr>
+                <h5>{{ obj.name }}</h5>
+
+                <h6>Price: $<strong>{{ obj.startBid }}</strong></h6>
+                {% if obj|max_bid %}
+                <h6>Current Bid: $<strong>{{ obj|max_bid }}</strong></h6>
+                {% endif %}
+
+                <hr>
+
+
+
+            </div>
+        </div>
+    </a>
+
+    {% empty %}
+    <div class="alert alert-info text-center p-4 my-4 mx-2">No items Available</div>
+    {% endfor %}
+
+    
+
+</div>
+
+<style>
+
+    .button-row-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 600px;
+        /* set a maximum width for the container */
+        margin: 0 auto;
+        /* center the container */
+        padding: 25px;    
+        border-radius: 0.25rem;
+        background: rgba(0, 0, 0, 0.500);
+        -webkit-backdrop-filter: blur(35px);
+        /* For Safari and some versions of Chrome */
+        backdrop-filter: blur(35px);
+    }
+
+    .button-row {
+        font-family: "Allerta Stencil", Gadget, sans-serif;
+        display: inline-block;
+        border: none;
+        padding: 10px 25px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #f1f1f100;
+        color: #ffffff;
+        cursor: pointer;
+        width: 100%;
+        max-width: 1000px;
+        transition: 0.5s;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.400);
+        border-radius: 0.25rem;
+        border: 1px solid rgb(255, 255, 255);
+    }
+
+    .button-row:hover {
+        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.205), 0 6px 6px rgba(0, 0, 0, 0.23);
+        /* margin: 8px 10px 12px; */
+        background-position: right center;
+    }
+
+    .button-raw:focus {
+        outline: none;
+    }
+
+    .next {
+        margin-left: 50px;
+        /* align to the left */
+        width: auto;
+        /* Set width to auto */
+
+    }
+
+    .next {
+        margin-left: 0;
+        /* align to the right */
+        width: auto;
+        /* Set width to auto */
+    }
+</style>
+<br>
+<div class="button-row-container">
+    {% if objects.has_previous %}
+    <a href="?page=1"> 
+        <input class="button-row back" type="button" value="&laquo First">
+    </a>
+    <a href="?page={{ objects.previous_page_number }}">
+        <input class="button-row back" type="button" value="Previous">
+    </a>
+    {% endif %}
+
+    Page {{ objects.number }} of {{ objects.paginator.num_pages }}
+
+    {% if objects.has_next %}
+    <a href="?page={{ objects.next_page_number }}">
+        <input class="button-row next" type="button" value="Next">
+    </a>
+    <a href="?page={{ objects.paginator.num_pages }}">
+        <input class="button-row next" type="button" value="Last &raquo">
+    </a>
+    {% endif %}
+</div>
+</div>
+
+
+
+{% endblock %}
+
