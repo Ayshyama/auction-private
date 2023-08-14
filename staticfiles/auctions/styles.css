@@ -1,0 +1,361 @@
+a,
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.singleCard {
+    height: 50%;
+    width: auto;
+    margin: 1%;
+}
+
+.title {
+    font-size: 2rem;
+}
+
+img {
+    max-height: 250px;
+    width: auto;
+}
+
+
+/* #### BUTTONS #### */
+.gradient-button {
+    margin: 10px;
+    font-family: "Allerta Stencil", Gadget, sans-serif;
+    font-size: 20px;
+    padding: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: #FFF;
+    box-shadow: 0 0 20px #eee;
+    width: 200px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.250);
+    transition: all 0.5s cubic-bezier(.25, .8, .25, 1);
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 0.25rem;
+    border: 1px solid black;
+}
+
+.gradient-button:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.250);
+    margin: 8px 10px 12px;
+    background-position: right center;
+}
+
+.gradient-button:focus {
+    outline: none;
+}
+
+
+
+.category {
+    background-image: linear-gradient(to right, #2BC0E4 0%, #EAECC6 51%, #2BC0E4 100%);
+    color: rgba(0, 0, 0, 0.600);
+}
+
+.grid-container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-item {
+    height: 4rem;
+    /* background-color: rgba(255, 255, 255, 0); */
+    border: 3px solid rgb(255, 230, 186);
+    border-radius: 0.25rem;
+    display: grid;
+    align-content: center;
+}
+
+.add-listing {
+    background-image: linear-gradient(to right, #7474BF 0%, #348AC7 51%, #7474BF 100%);
+}
+
+.add-category {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+}
+
+.category-input {
+    margin-top: 15%;
+    height: 60%;
+    box-shadow: 0 0 8px #2BC0E4;
+}
+
+.watchlist {
+    background-image: linear-gradient(to right, #98FB98 0%, #FDF0AA 51%, #98FB98 100%);
+    background-color: rgba(0, 0, 0, 0.500);
+}
+
+.items-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 1fr) );
+    grid-gap: 25px;
+    /* background-color: rgba(0, 0, 0, 0.500); */
+    -webkit-backdrop-filter: blur(20px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(20px);
+    /* Standard syntax */
+    padding: 25px;
+    border-radius: 0.25rem;
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.400);
+}
+
+@media only screen and (max-width: 1200px) {
+    .items-list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+
+
+@supports (not (backdrop-filter: blur(20px))) and (not (-webkit-backdrop-filter: blur(20px))) {
+    .navbar {
+        background-color: hls(0, 0%, 100%, 0.8);   
+    }
+}
+
+
+
+.item {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 25px;
+    display: grid;
+    grid-template-rows: 1fr 1fr; /* modified to have same value for both rows */
+    border-radius: 0.25rem;
+    position: relative;
+    height: 100%;
+    overflow: hidden; /* added to clip image */
+
+  }
+  
+  .item:hover img {
+    transform: scale(1.4);
+  }
+
+
+
+.item img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.navbar {
+    -webkit-backdrop-filter: blur(20px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(20px);
+    /* Standard syntax */
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.150);
+    width: 100%;
+    height: 142px;
+    transition: top 0.5s ease-in-out;
+}
+
+.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+footer {
+    -webkit-backdrop-filter: blur(20px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(20px);
+    /* Standard syntax */
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.300);
+    width: 100%;
+    height: 198Spx;
+    color: #333;
+    padding: 30px;
+    margin-top: auto;
+    text-align: center;
+}
+
+.navbar-brand {
+    font-size: 3rem;
+}
+
+
+.badge {
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.25rem;
+}
+
+.status--active {
+    background: rgba(190, 255, 92, 0.8);
+}
+
+.status--inactive {
+    background: rgba(255, 190, 92, 0.8);
+}
+
+.status--watching {
+    background: rgba(172, 128, 255, 0.281);
+}
+
+.status--notwatching {
+    background: rgba(128, 194, 255, 0.8);
+}
+
+.container-body {
+    margin-bottom: 1.5rem;
+}
+
+body {
+    /* background-image: url("/static/img/bg.jpg"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: initial;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(rgba(3, 2, 7, 0.1),rgba(3, 2, 7, 0.900)) , url("/static/img/bg1.jpg");
+}
+
+
+
+main {
+    flex: 1;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.detail-page {
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.500);
+    -webkit-backdrop-filter: blur(20px);
+    /* For Safari and some versions of Chrome */
+    backdrop-filter: blur(20px);
+    border-radius: 0.25rem;
+}
+
+.comment {
+    margin: 1rem 0rem;
+    background-color: #e7eaf1d0;
+}
+
+.big {
+    width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+
+.image {
+    height: 60vh;
+}
+
+.item-description {
+    font-size: 22px;
+    text-align: center;
+    margin: 1rem 0rem;
+}
+
+.bid {
+    font-size: 28px;
+    margin-bottom: 0.5rem;
+}
+
+* {
+    font-family: 'Allerta Stencil';
+    color: white;
+}
+
+.register-link {
+    color: #3a7bd5;
+}
+
+/* #### MESSAGES #### */
+.messages {
+    margin: 20px 0;
+    padding: 0;
+    border-radius: 0.25rem;
+  }
+  .messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    list-style: none;
+    color: #fff;
+    border-radius: 0.25rem;
+  }
+  .messages li.warning {
+    background-color: #f44336b0;
+  }
+  .messages li.success {
+    background-color: #4caf4fb0;
+  }
+
+
+/* #### LOGIN-REGISTRATION #### */
+/*.inout {*/
+
+/*    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.400);*/
+/*    background-color: rgba(0, 0, 0, 0.00);*/
+/*    -webkit-backdrop-filter: blur(20px);*/
+/*    backdrop-filter: blur(20px);*/
+/*    color: white;*/
+/*    border-radius: 0.25rem;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/* .inout form {
+    position: absolute;
+    inset: 4px;
+    box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.250);
+    background-color: rgba(0, 0, 0, 0.00);
+    -webkit-backdrop-filter: blur(35px);
+    backdrop-filter: blur(35px);
+    color: white;
+    padding: 50px 40px;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.inout::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 380px;
+    height: 420px;
+    background: linear-gradient(0deg, transparent,
+    transparent,
+    rgb(0, 102, 255),
+    rgb(0, 102, 255),
+    rgb(0, 102, 255) );
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+@keyframes animate {
+    0%
+    {
+      transform: rotate(0deg)  
+    }
+    100%
+    {
+        transform: rotate(360deg);
+    }
+} */
+
+
+.register {
+    background-image: linear-gradient(to right, #E15F64 0%, #F7BB97 51%, #E15F64 100%);
+}
+
+.login {
+    background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%, #00d2ff 100%);
+}
