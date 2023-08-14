@@ -176,6 +176,9 @@ footer {
     color: #333;
     padding: 30px;
     margin-top: auto;
+
+}
+footer h5{
     text-align: center;
 }
 
@@ -351,7 +354,11 @@ body {
     }
 } */
 
-
+.partner-logos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .register {
     background-image: linear-gradient(to right, #E15F64 0%, #F7BB97 51%, #E15F64 100%);
 }

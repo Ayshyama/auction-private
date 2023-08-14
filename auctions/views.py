@@ -1,5 +1,4 @@
 from django.urls import reverse
-from django.db.models import Max
 from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import render
@@ -11,18 +10,21 @@ from .models import User, Category, AuctionListing, Bid, Comment
 from django.core.paginator import Paginator
 from django.db.models import Max
 from auctions.models import Bid
+from .models import PartnerLogo, Announcement
+
+
 
 
 
 def index(request):
-    obj = AuctionListing.objects.all()
-    p = Paginator(AuctionListing.objects.all(), 9)
+    p = Paginator(AuctionListing.objects.all(), 10)
     page = request.GET.get('page')
     obj = p.get_page(page)
-    # bids = Bid.objects.all()
+
+    partner_logos = PartnerLogo.objects.all()
+    announcements = Announcement.objects.all()
 
     bids = Bid.objects.values('auctionListing').annotate(max_bid=Max('bidValue'))
-        # Create a dictionary that maps auctionListing IDs to their max bid value
     max_bids = {}
     for bid in bids:
         max_bids[bid['auctionListing']] = bid['max_bid']
@@ -31,6 +33,8 @@ def index(request):
         "objects": obj,
         'bids': bids,
         'max_bids': max_bids,
+        'partner_logos': partner_logos,
+        'announcements': announcements
     })
 
 def details(request, id):
@@ -121,36 +125,6 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("index"))
 
 
-# def register(request):
-#     if request.method == "POST":
-#         username = request.POST["username"]
-#         # email = request.POST["email"]
-#         password = request.POST["password"]
-#         confirmation = request.POST["confirmation"]
-#         phone = request.POST["phone"]
-#         country_code = request.POST["country_code"]
-
-#         if password != confirmation:
-#             return render(request, "auctions/register.html", {
-#                 "message": "Passwords must match."
-#             })
-
-#         try:
-#             # user = User.objects.create_user(username, email, password)
-#             user = User.objects.create_user(username, password)
-#             user.phone = f"{country_code}{phone}"
-#             user.save()
-#         except IntegrityError:
-#             return render(request, "auctions/register.html", {
-#                 "message": "Username already taken."
-#             })
-
-#         login(request, user)
-#         return HttpResponseRedirect(reverse("index"))
-#     else:
-#         return render(request, "auctions/register.html")
-
-
 @login_required
 def createListing(request):
     if request.method == 'POST':
@@ -169,10 +143,6 @@ def createListing(request):
     return render(request, "auctions/createListing.html", {
         'categories': Category.objects.all()
     })
-
-
-
-
 
 
 def auction_details(request, item_id):
@@ -289,4 +259,3 @@ def watch(request):
     return render(request, "auctions/index.html", {
         "objects": obj
     })
-

@@ -1,10 +1,10 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import User
-
-
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
+
 
 class User(AbstractUser):
     phone_regex = RegexValidator(
@@ -16,7 +16,21 @@ class User(AbstractUser):
         'AuctionListing', blank=True, related_name="userWatchlist")
 
 
+class PartnerLogo(models.Model):
+    image = models.ImageField(upload_to='partners/')
+    alt_text = models.CharField(max_length=255)
+    width = models.PositiveIntegerField(default=100)
+    height = models.PositiveIntegerField(default=100)
 
+    def __str__(self):
+        return self.alt_text
+
+
+class Announcement(models.Model):
+    text = RichTextField()
+
+    def __str__(self):
+        return self.text[:50]
 
 
 class Category(models.Model):
@@ -37,8 +51,6 @@ class AuctionListing(models.Model):
     imageUrl = models.URLField(null = True, blank=True)
     auc_image = models.ImageField(blank=True, upload_to='auc_images/')
     active = models.BooleanField()
-
-
 
     def __str__(self):
         return f"{self.id} : {self.name} in {self.category.name}\nPosted at : {self.date}\nValue : {self.startBid}\nDescription : {self.description}\nPosted By : {self.user.username} Active Status: {self.active}"

@@ -166,7 +166,8 @@
         {% endblock %}
     </div>
 
-
+<!-- For the announcement -->
+{{ announcement.text|safe }}
 
 <footer>
     <div class="container">
@@ -199,36 +200,22 @@
         <div class="partners">
         <h5>OUR PARTNERS</h5>
 <hr>
-        <div class="partner-logos">
-            <!-- <img src="{% static 'img/partner2.jpg' %}" alt="Partner 1"> -->
-            <img src="{% static 'img/partner1.jpg' %}" alt="Partner 2">
-
-        </div>
+<!-- For partner logos -->
+<div class="partner-logos">
+    {% for logo in partner_logos %}
+        <img src="{{ logo.image.url }}" alt="{{ logo.alt_text }}" width="{{ logo.width }}" height="{{ logo.height }}">
+    {% endfor %}
+</div>
 
         <br>
         <br>
 
-        <h5>
-        У рамках Hotel Forum, сьогодні ввечері ми відкриваємо Благодійний онлайн-аукціон. Всі бажаючі можуть нас підтримати та зробити ставки!
-        </h5>
-<br>
-<br>
-        <h5>
-        Онлайн аукціон триватиме з 27.04. по 27.05
-        </h5>
-
-        <h5>
-        Офлайн аукціон -  відкривається 29.04 о 19:00 у Emily Resort.
-        </h5>
-<br>
-<br>
-        <h5>
-        Усі кошти від торгів підуть на будівництво у Кончі-Заспі Реабілітаційного центру для дітей, які постраждали від військової агресії росії.  
-        </h5>
-
-        <h5>
-            Tuzov Gallery створює синергію, яка полягає у перетворенні коштів від продажу предметів мистецтва на підтримку дітей, які потерпіли від війни.
-        </h5>
+<!-- For the announcement -->
+{% for announcement in announcements %}
+    <h5 style="font-size:{{ announcement.font_size }}px; color:{{ announcement.font_color }}; font-style:{{ announcement.font_style }};">
+        {{ announcement.text|safe }}
+    </h5>
+{% endfor %}
 
         </div>
 
@@ -256,11 +243,6 @@
     <!-- footer-style -->
 <style>
 
-    .partner-logos img {
-        width: 300px;
-        height: 70px;
-        margin-right: 20px;
-    }
 
     .social-icons {
         justify-content: center;

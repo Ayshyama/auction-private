@@ -19,7 +19,7 @@ urlpatterns = [
     path("end/<int:itemId>", views.end, name="end"),
     path("all", views.all, name="all"),
     path("watchlist", views.watchlist, name="watchlist"),
-    path("watch", views.watch, name="watch")
+    path("watch", views.watch, name="watch"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = 'Tuzov Auction House'
