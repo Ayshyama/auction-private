@@ -358,6 +358,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 .register {
     background-image: linear-gradient(to right, #E15F64 0%, #F7BB97 51%, #E15F64 100%);

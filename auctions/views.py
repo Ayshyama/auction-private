@@ -52,7 +52,9 @@ def details(request, id):
         'item': item,
         'bids': bids,
         'comments': comments,
-        'bid': bid    
+        'bid': bid,
+        'partner_logos': PartnerLogo.objects.all(),
+        'announcements': Announcement.objects.all()
     })
 
 
