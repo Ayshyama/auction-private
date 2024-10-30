@@ -1,11 +1,24 @@
+version: '3'
 services:
-  tuzovauction:
-    build: ./tuzovauction
+  auction_django_gunicorn:
+    build: .
     volumes:
-      - ./tuzovauction/static:/var/www/tuzovauction/static:rw
-      - ./tuzovauction/media:/var/www/tuzovauction/media:rw
-    expose:
-      - "8002"
+      - static_volume:/var/www/auction-private/static:rw
+      - media_volume:/var/www/auction-private/media:rw
+      - ./db:/app/db:rw
     env_file:
-      - ./tuzovauction/.env
+      - ./.env
+    expose:
+      - "8001"
     restart: always
+
+  auction_memcached:
+    image: memcached:alpine
+    ports:
+      - "11214:11214"
+    command:
+      - '-m 128'
+
+volumes:
+  static_volume:
+  media_volume:

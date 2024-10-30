@@ -1,0 +1,8 @@
+test
+.env
+.vscode
+.idea
+__pycache__
+node_modules
+staticfiles
+info.log
