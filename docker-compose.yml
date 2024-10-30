@@ -1,0 +1,11 @@
+services:
+  tuzovauction:
+    build: ./tuzovauction
+    volumes:
+      - ./tuzovauction/static:/var/www/tuzovauction/static:rw
+      - ./tuzovauction/media:/var/www/tuzovauction/media:rw
+    expose:
+      - "8002"
+    env_file:
+      - ./tuzovauction/.env
+    restart: always
